@@ -20,10 +20,10 @@ disabled = false
 # Shows the username
 [username]
 style_user = "white bold"
-style_root = "black bold"
+style_root = "red bold"
 format = "[$user]($style) "
-disabled = true  # disable in powershell
-show_always = false
+disabled = false  # disable in powershell
+show_always = true
 
 [hostname]
 ssh_only = false
