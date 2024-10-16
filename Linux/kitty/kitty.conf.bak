@@ -1,0 +1,4 @@
+shell /usr/bin/zsh
+
+kitty_mod ctrl+shift
+
