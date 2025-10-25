@@ -1,0 +1,66 @@
+#!/bin/bash
+
+sway_config="$HOME/.config/sway/config"
+rofi_theme="$HOME/.config/sway/rofi/keybinds.rasi"
+
+# Extract variable definitions from sway config
+declare -A vars
+while IFS= read -r line; do
+    if [[ $line =~ ^set\ \$([a-zA-Z_]+)\ (.+)$ ]]; then
+        vars["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+    fi
+done < "$sway_config"
+
+# Function to resolve variables in a string
+resolve_vars() {
+    local str="$1"
+    for var in "${!vars[@]}"; do
+        str="${str//\$$var/${vars[$var]}}"
+    done
+    echo "$str"
+}
+
+# Parse sway config for keybindings
+sway_bindings=$(gawk '
+    /^bindsym/ {
+        # Remove "bindsym " prefix
+        line = $0
+        sub(/^bindsym[[:space:]]+/, "", line)
+
+        # Match keybind and command
+        if (match(line, /^([^[:space:]]+)[[:space:]]+(.+)$/, arr)) {
+            keybind = arr[1]
+            command = arr[2]
+
+            # Clean up exec prefix if present
+            if (match(command, /^exec[[:space:]]+(.+)$/, cmd)) {
+                command = cmd[1]
+            }
+
+            # Truncate long commands
+            if (length(command) > 50) {
+                command = substr(command, 1, 47) "..."
+            }
+
+            printf "%-35s|%s\n", keybind, command
+        }
+    }
+' "$sway_config")
+
+# Resolve variables in the output
+resolved_bindings=""
+while IFS= read -r line; do
+    if [[ -n "$line" ]]; then
+        resolved_bindings+="$(resolve_vars "$line")"$'\n'
+    fi
+done <<< "$sway_bindings"
+
+# Format for rofi display
+formatted_keybindings=$(echo "$resolved_bindings" | column -t -s '|')
+
+# Show in rofi
+if [[ -f "$rofi_theme" ]]; then
+    echo "$formatted_keybindings" | rofi -dmenu -i -p "Sway Keybindings" -theme "$rofi_theme"
+else
+    echo "$formatted_keybindings" | rofi -dmenu -i -p "Sway Keybindings"
+fi

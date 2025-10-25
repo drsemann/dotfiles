@@ -1,0 +1,303 @@
+/* DWM Theme for SwayNC */
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 13px;
+}
+
+/* Control Center */
+.control-center {
+  background: #00141d;
+  border: 2px solid #4fc3f7;
+  border-radius: 0px;
+  margin: 8px;
+  padding: 0;
+}
+
+.control-center .notification {
+  background: #1a1a1a;
+  border: 1px solid #4fc3f7;
+  border-radius: 0px;
+  margin: 4px;
+  padding: 8px;
+}
+
+/* Notification Window */
+.notification {
+  background: #00141d;
+  border: 2px solid #4fc3f7;
+  border-radius: 0px;
+  margin: 8px;
+  padding: 0;
+}
+
+.notification-content {
+  background: transparent;
+  padding: 8px;
+  border-radius: 0px;
+}
+
+.close-button {
+  background: #ff6b6b;
+  color: #FFFFFF;
+  border-radius: 0px;
+  padding: 4px;
+  margin: 4px;
+}
+
+.close-button:hover {
+  background: #ff8888;
+}
+
+/* Title and Body */
+.notification-default-action .notification-content .summary {
+  color: #b3e5fc;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.notification-default-action .notification-content .body {
+  color: #FFFFFF;
+  margin-top: 4px;
+}
+
+.notification-default-action .notification-content .time {
+  color: #4fc3f7;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* Images */
+.notification-default-action .notification-content .image {
+  border-radius: 0px;
+  margin: 8px;
+}
+
+.notification-default-action .notification-content .icon {
+  color: #b3e5fc;
+  margin-right: 8px;
+}
+
+/* Buttons */
+.notification-action {
+  background: #1a1a1a;
+  color: #FFFFFF;
+  border-radius: 0px;
+  margin: 4px;
+  padding: 6px 12px;
+  border: 1px solid #4fc3f7;
+}
+
+.notification-action:hover {
+  background: #4fc3f7;
+  color: #00141d;
+}
+
+/* Widget Styles */
+.widget-title {
+  background: #1a1a1a;
+  color: #b3e5fc;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+  margin: 8px;
+  border-radius: 0px;
+  border: none;
+}
+
+.widget-title button {
+  background: #ff6b6b;
+  color: #FFFFFF;
+  border-radius: 0px;
+  padding: 6px 12px;
+}
+
+.widget-title button:hover {
+  background: #ff8888;
+}
+
+/* DND Toggle */
+.widget-dnd {
+  background: #1a1a1a;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 0px;
+  border: none;
+}
+
+.widget-dnd > switch {
+  background: #1a1a1a;
+  border-radius: 0px;
+  padding: 2px;
+  border: 1px solid #4fc3f7;
+}
+
+.widget-dnd > switch:checked {
+  background: #4fc3f7;
+}
+
+.widget-dnd > switch slider {
+  background: #b3e5fc;
+  border-radius: 0px;
+}
+
+.widget-dnd label {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+/* Urgency Levels */
+.notification.critical {
+  border: 2px solid #ff6b6b;
+}
+
+.notification.critical .notification-content .summary {
+  color: #ff6b6b;
+}
+
+.notification.low {
+  border: 2px solid #80bfff;
+}
+
+/* Scrollbar */
+.control-center scrollbar {
+  background: transparent;
+}
+
+.control-center scrollbar trough {
+  background: #1a1a1a;
+  border-radius: 0px;
+}
+
+.control-center scrollbar slider {
+  background: #80bfff;
+  border-radius: 0px;
+}
+
+.control-center scrollbar slider:hover {
+  background: #b3e5fc;
+}
+
+/* Empty notification center */
+.blank-window {
+  background: transparent;
+}
+
+.widget-label {
+  color: #b3e5fc;
+  font-size: 18px;
+}
+
+/* MPRIS (Media Player) Widget */
+.widget-mpris {
+  background: #1a1a1a;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 0px;
+  border: none;
+}
+
+.widget-mpris-player {
+  background: transparent;
+  padding: 8px;
+}
+
+.widget-mpris-title {
+  color: #b3e5fc;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.widget-mpris-artist {
+  color: #FFFFFF;
+  font-size: 12px;
+}
+
+.widget-mpris > box > button {
+  background: #00141d;
+  color: #b3e5fc;
+  border-radius: 0px;
+  border: 1px solid #4fc3f7;
+  margin: 2px;
+}
+
+.widget-mpris > box > button:hover {
+  background: #4fc3f7;
+  color: #00141d;
+}
+
+/* Volume Slider */
+.widget-volume {
+  background: #1a1a1a;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 0px;
+  border: none;
+}
+
+.widget-volume > box > label {
+  color: #b3e5fc;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.widget-volume > box > scale {
+  background: transparent;
+}
+
+.widget-volume > box > scale trough {
+  background: #00141d;
+  border-radius: 0px;
+  min-height: 8px;
+  min-width: 200px;
+}
+
+.widget-volume > box > scale trough highlight {
+  background: #4fc3f7;
+  border-radius: 0px;
+}
+
+.widget-volume > box > scale trough slider {
+  background: #b3e5fc;
+  border-radius: 0px;
+  min-height: 16px;
+  min-width: 16px;
+}
+
+/* Backlight/Brightness Slider */
+.widget-backlight {
+  background: #1a1a1a;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 0px;
+  border: none;
+}
+
+.widget-backlight > box > label {
+  color: #ffc107;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.widget-backlight > box > scale {
+  background: transparent;
+}
+
+.widget-backlight > box > scale trough {
+  background: #00141d;
+  border-radius: 0px;
+  min-height: 8px;
+  min-width: 200px;
+}
+
+.widget-backlight > box > scale trough highlight {
+  background: #ffc107;
+  border-radius: 0px;
+}
+
+.widget-backlight > box > scale trough slider {
+  background: #ffd54f;
+  border-radius: 0px;
+  min-height: 16px;
+  min-width: 16px;
+}

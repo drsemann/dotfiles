@@ -1,0 +1,14 @@
+show=drun
+width=600
+height=400
+location=center
+prompt=Search...
+filter_rate=100
+allow_markup=true
+no_actions=true
+allow_images=true
+image_size=32
+insensitive=true
+hide_scroll=true
+gtk_dark=true
+term=wezterm

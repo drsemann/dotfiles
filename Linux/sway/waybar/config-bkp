@@ -1,0 +1,120 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    "margin-top": 10,
+    "margin-left": 10,
+    "margin-right":10,
+    "mode" : "dock",
+
+    "modules-left": ["clock#time", "clock#date", "sway/window"],
+    "modules-center": ["sway/workspaces"],
+    "modules-right": ["cpu", "memory", "disk", "pulseaudio", "battery", "custom/notification", "tray"],
+
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{name}",
+        "numeric-first": true
+    },
+
+    "sway/window": {
+        "format": "{title}",
+        "max-length": 80,
+        "tooltip": false
+    },
+
+    "tray": {
+        "spacing": 6
+    },
+
+    "clock#date": {
+        "format": "<span color='#80bfff'>󰸗</span> {:%a %b %d}",
+        "tooltip": false
+    },
+
+    "clock#time": {
+        "format": "<span color='#9c27b0'>󰥔</span> {:%I:%M %p}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#b3e5fc'><b>{}</b></span>",
+                "days": "<span color='#FFFFFF'><b>{}</b></span>",
+                "weekdays": "<span color='#4fc3f7'><b>{}</b></span>",
+                "today": "<span color='#80bfff'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "disk": {
+        "format": "<span color='#ffc107'>󰋊</span> {percentage_used}%",
+        "path": "/",
+        "tooltip": false,
+        "interval": 30
+    },
+
+    "cpu": {
+        "format": "<span color='#ff6b6b'>󰻠</span> {usage}%",
+        "tooltip": false,
+        "interval": 1
+    },
+
+    "memory": {
+        "format": "<span color='#4fc3f7'>󰍛</span> {}%",
+        "tooltip": false,
+        "interval": 1
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "<span color='#b3e5fc'>󱊣</span> {capacity}%",
+        "format-charging": "<span color='#4fc3f7'>󱊥</span> {capacity}%",
+        "format-plugged": "<span color='#4fc3f7'>󱊥</span> {capacity}%",
+        "format-alt": "{time}",
+        "tooltip": false
+    },
+
+    "network": {
+        "format-wifi": "<span color='#b3e5fc'>󰖩</span> {essid}",
+        "format-ethernet": "<span color='#b3e5fc'>󰈀</span> ETH",
+        "format-linked": "<span color='#b3e5fc'>󰈀</span> No IP",
+        "format-disconnected": "<span color='#808080'>󰖪</span> Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "interval": 5,
+        "on-click": "nm-connection-editor"
+    },
+
+    "pulseaudio": {
+        "format": "<span color='#b3e5fc'>󰕾</span> {volume}%",
+        "format-muted": "<span color='#808080'>󰖁</span> MUTE",
+        "tooltip": false,
+        "on-click": "pavucontrol"
+    },
+
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "<span foreground='#ff6b6b'>󰂚</span>",
+            "none": "<span foreground='#b3e5fc'>󰂚</span>",
+            "dnd-notification": "<span foreground='#ff6b6b'>󰂛</span>",
+            "dnd-none": "<span foreground='#b3e5fc'>󰂛</span>",
+            "inhibited-notification": "<span foreground='#ff6b6b'>󰂚</span>",
+            "inhibited-none": "<span foreground='#b3e5fc'>󰂚</span>",
+            "dnd-inhibited-notification": "<span foreground='#ff6b6b'>󰂛</span>",
+            "dnd-inhibited-none": "<span foreground='#b3e5fc'>󰂛</span>"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb --skip-wait",
+        "on-click": "swaync-client -t",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true,
+        "restart-interval": 3
+    }
+}

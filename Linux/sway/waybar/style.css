@@ -1,0 +1,119 @@
+/* DWM-style color scheme matching slstatus */
+@define-color bg #00141d;
+@define-color fg #FFFFFF;
+@define-color gray #1a1a1a;
+@define-color cyan #b3e5fc;
+@define-color barbie #4fc3f7;
+@define-color blue #80bfff;
+@define-color red #ff6b6b;
+@define-color yellow #ffc107;
+@define-color purple #9c27b0;
+
+* {
+    border: 2;
+    border-radius: 0px;
+    font-family: "Hack Nerd Font", monospace;
+    font-size: 16px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: @bg;
+    color: @fg;
+}
+
+/* Workspaces */
+#workspaces {
+    background-color: @bg;
+}
+
+/* Window title (left side) - dark bg, light text */
+#window {
+    background-color: @bg;
+    color: @fg;
+    font-weight: normal;
+    padding: 0 12px;
+}
+
+#workspaces button {
+    padding: 0 0px;
+    background-color: @bg;
+    color: @fg;
+    border: none;
+    border-bottom: 0px solid transparent;
+    min-width: 24px;
+}
+
+/* Workspace with windows (occupied) - style non-empty workspaces */
+#workspaces button:not(.empty):not(.focused) {
+    color: @fg;
+}
+
+#workspaces button:hover {
+    background-color: @gray;
+    color: @cyan;
+}
+
+/* Active/focused workspace */
+#workspaces button.focused {
+    background-color: @cyan;
+    color: @bg;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    background-color: @blue;
+    color: @fg;
+    border-bottom: 3px solid @blue;
+}
+
+/* Right-side modules */
+#cpu,
+#memory,
+#disk,
+#pulseaudio,
+#network,
+#battery,
+#clock,
+#tray,
+#custom-notification {
+    padding: 0 8px;
+    background-color: @bg;
+    color: @fg;
+}
+
+/* All module text should be white, icons colored via HTML markup in config */
+#cpu,
+#memory,
+#disk,
+#pulseaudio,
+#network,
+#battery,
+#clock {
+    color: @fg;
+}
+
+#cpu {
+    padding-left: 8px;
+}
+
+#clock.time {
+    padding-right: 8px;
+}
+
+#tray {
+    background-color: @bg;
+    padding-right: 12px;
+}
+
+#custom-notification {
+    padding-right: 12px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}

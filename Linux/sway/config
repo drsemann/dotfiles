@@ -1,0 +1,242 @@
+# Sway Config - MEGA Cool Edition
+# Read `man 5 sway` for reference
+
+### Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term kitty
+set $menu rofi -show drun -config $config_dir/rofi/config.rasi
+set $config_dir ~/.config/sway
+
+### Output configuration
+# Simple static wallpaper with swaybg
+output * bg ~/.config/sway/wallpaper/atual/background.png fill
+
+# For multiple monitors:
+# output HDMI-A-1 resolution 1920x1080 position 1920,0
+
+### Idle configuration
+exec swayidle -w \
+    timeout 300 'gtklock' \
+    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'gtklock'
+
+### Input configuration
+input type:touchpad {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+
+input type:keyboard {
+    xkb_layout br
+    xkb_model thinkpad60
+    xkb_options caps:escape
+    repeat_delay 300
+    repeat_rate 50
+}
+
+### Key bindings
+# Basics
+bindsym $mod+Return exec $term
+bindsym $mod+q kill
+bindsym $mod+space exec $menu
+bindsym $mod+Shift+r reload
+#bindsym $mod+Shift+x exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'
+bindsym $mod+Shift+x exec $config_dir/scripts/sway-exit.sh
+bindsym $mod+x exec gtklock
+floating_modifier $mod normal
+
+# Movement
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+minus workspace number 11
+bindsym $mod+equal workspace number 12
+
+# Move to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Shift+minus move container to workspace number 11
+bindsym $mod+Shift+equal move container to workspace number 12
+
+# Layout
+default_orientation horizontal
+bindsym Ctrl+Shift+1 layout splith; border pixel 4
+bindsym Ctrl+Shift+2 layout splitv; border pixel 4
+bindsym Ctrl+Shift+3 layout tabbed; border normal 4
+bindsym Ctrl+Shift+4 layout stacking; border normal 4
+bindsym Ctrl+Shift+5 layout toggle split; border pixel 4
+bindsym $mod+Shift+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+p exec $config_dir/scripts/sway-layout-menu.sh
+
+# Resize (DWM-style with Ctrl)
+bindsym $mod+Ctrl+$left resize shrink width 10px
+bindsym $mod+Ctrl+$down resize grow height 10px
+bindsym $mod+Ctrl+$up resize shrink height 10px
+bindsym $mod+Ctrl+$right resize grow width 10px
+bindsym $mod+Ctrl+Left resize shrink width 10px
+bindsym $mod+Ctrl+Down resize grow height 10px
+bindsym $mod+Ctrl+Up resize shrink height 10px
+bindsym $mod+Ctrl+Right resize grow width 10px
+
+# Screenshot utilities
+bindsym Print exec grim ~/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "📸 Screenshot saved to ~/Screenshots"
+bindsym Shift+Print exec grim -g "$(slurp)" - | wl-copy && notify-send "📋 Screenshot copied to clipboard"
+bindsym $mod+Print exec grim -g "$(slurp)" ~/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "📸 Screenshot saved to ~/Screenshots"
+
+# Media keys
+bindsym XF86AudioRaiseVolume exec $config_dir/scripts/changevolume up
+bindsym XF86AudioLowerVolume exec $config_dir/scripts/changevolume down
+bindsym XF86AudioMute exec $config_dir/scripts/changevolume mute
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Volume control (custom bindings)
+bindsym $mod+Insert exec $config_dir/scripts/changevolume up
+bindsym $mod+Delete exec $config_dir/scripts/changevolume down
+bindsym $mod+m exec $config_dir/scripts/changevolume mute
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Notification center
+bindsym $mod+Shift+n exec swaync-client -t
+bindsym $mod+v exec cliphist list | wofi -dmenu | cliphist decode | wl-copy
+
+# Show keybindings help
+bindsym $mod+slash exec $config_dir/scripts/help
+
+# Audio mixer
+bindsym $mod+Shift+a exec $term -e pulsemixer
+
+# File manager (matching DWM)
+bindsym $mod+f exec thunar
+
+# Browser (matching DWM)
+bindsym $mod+b exec brave-browser
+
+# Text editor (matching DWM)
+bindsym $mod+e exec subl
+
+# Sticky window toggle (matching DWM)
+bindsym $mod+s sticky toggle
+
+## Proton Mail
+bindsym $mod+Alt+m exec proton-mail
+
+### Appearance
+# Font for window titles/tabs
+font pango:Lilex Nerd Font Mono 11
+
+# Window borders (matching DWM 4px)
+default_border pixel 2
+default_floating_border pixel 2
+titlebar_padding 5 2
+gaps inner 5
+gaps outer 2
+
+# Colors (matching DWM color scheme)
+set $bg #00141d
+set $fg #FFFFFF
+set $gray #1a1a1a
+set $cyan #b3e5fc
+set $barbie #4fc3f7
+set $blue #b3e5fc
+
+# class                 border   backgr  text    indicator child_border
+client.focused          $cyan  $cyan   $gray   $blue     $barbie
+client.focused_inactive $gray    $bg     $fg     $bg       $gray
+client.unfocused        $gray    $bg     $fg     $bg       $gray
+client.urgent           $blue    $blue   $bg     $blue     $blue
+
+### Startup applications
+#exec_always autotiling
+exec_always bash -c "killall -q swaync; while pgrep -x swaync >/dev/null; do sleep 0.1; done; swaync -c ~/.config/sway/swaync/config.json -s ~/.config/sway/swaync/style.css"
+#exec blueman-applet
+exec lxpolkit
+
+# Clipboard history
+exec wl-paste --watch cliphist store
+
+# Status bar - launch waybar on startup
+exec_always bash -c "killall -q waybar; while pgrep -x waybar >/dev/null; do sleep 0.1; done; waybar -c ~/.config/sway/waybar/config -s ~/.config/sway/waybar/style.css"
+
+# Start network manager
+exec --no-startup-id 'nm-applet --indicator'
+
+### App-specific settings
+# Floating apps (matching DWM)
+for_window [app_id="mpv"] floating enable, move position center
+for_window [class="mpv"] floating enable, move position center
+for_window [app_id="eog"] floating enable, move position center
+for_window [class="Eog"] floating enable, move position center
+for_window [app_id="galculator"] floating enable, move position center
+for_window [class="Galculator"] floating enable, move position center
+for_window [app_id="transmission-gtk"] floating enable, move position center
+for_window [class="Transmission-gtk"] floating enable, move position center
+for_window [app_id="nwg-look"] floating enable, move position center
+for_window [app_id="pavucontrol"] floating enable, move position center
+for_window [app_id="blueman-manager"] floating enable, move position center
+
+# Thunar dialogs
+for_window [app_id="thunar" title=".*Progress.*"] floating enable
+for_window [app_id="thunar" title=".*File.*Operation.*"] floating enable
+for_window [app_id="thunar" title=".*Confirm.*"] floating enable
+
+# Generic floating rules
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+
+# Inhibit idle for fullscreen apps
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
+
+#include /etc/sway/config.d/*
+# Import environment variables for systemd and D-Bus services
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
