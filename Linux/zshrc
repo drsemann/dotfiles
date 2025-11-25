@@ -19,11 +19,12 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #colors
 bg1='#bdf'; bg2='#259'; bg3='236'
 fg1='#259'; fg2='#bdf'; fg3='245'
-os_version="$(lsb_release -d | cut -f2)"
+
 PROMPT_USER="%K{$bg1}%F{$fg1} %n %K{$bg2}%F{$bg1}"
 PROMPT_HOSTNAME="%K{$bg2}%F{$fg2} %m %(!.%K{red}%F{$bg2}.%K{$bg3}%F{$bg2})"
 PROMPT_DIRECTORY="%(!.%K{red}%F{white}.%K{$bg3}%F{$fg3})%3~ %(!.%k%F{red}.%k%F{$bg3})%f%k "
+
 PROMPT="${PROMPT_USER} ${PROMPT_HOSTNAME} ${PROMPT_DIRECTORY}"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(zoxide init bash)"
+eval "$(zoxide init zsh)"
