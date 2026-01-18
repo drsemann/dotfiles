@@ -44,7 +44,7 @@ disabled = false
 
 [hostname]
 ssh_only = false
-format = "[$hostname]($style)"
+format = "[ $hostname ]($style)"
 trim_at = "-"
 style = "bg:#9A348E"
 disabled = false
