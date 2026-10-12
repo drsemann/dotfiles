@@ -1,0 +1,90 @@
+# Alterando prefixo de 'C-b' para 'C-a'
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix
+
+# Recarregar configuracao
+bind r source-file ~/.tmux.conf \; display '~/.tmux.conf reloaded'
+
+# Alternar entre os paineis com as setas sem prefixo
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+set -g default-terminal "screen-256color"
+set -s escape-time 10
+set -g set-titles on
+
+# Numero inicia com 1 nas janelas
+set -g base-index 1
+
+set -g renumber-windows on
+setw -g automatic-rename on
+set -g allow-rename off
+
+# Alterado atalho de split horizontal e vertical
+bind | split-window -h
+bind - split-window -v
+unbind '"'
+unbind %
+
+bind Tab last-window
+
+# ==========================================
+# NOVO ESTILO AZUL MODERN POWERLINE + SSH
+# ==========================================
+
+# Suporte a cores corrigido para evitar o erro anterior
+set-option -a -g terminal-overrides ",xterm-256color:Tc"
+
+# Cores das linhas divisórias dos painéis (Panes)
+set -g pane-border-style 'fg=#24283b'               # Azul bem escuro para inativo
+set -g pane-active-border-style 'fg=#7aa2f7,bold'   # Azul brilhante para o ativo
+
+# Cor do texto dentro dos painéis
+set -g window-style 'fg=#a9b1d6'                    # Texto padrão cinza-azulado
+set -g window-active-style 'fg=#c0caf5'             # Texto ativo focado
+
+# Configuração geral da Barra de Status
+set-option -g status-style bg=#1f2335,fg=#7aa2f7
+set-option -g window-status-separator ''
+
+# --- LADO ESQUERDO (Sessão + Indicador SSH Dinâmico) ---
+set -g status-left-length 100
+# Condicional do tmux: se SSH_CLIENT estiver definida, adiciona o bloco "   SSH" em vermelho/laranja antes da seta
+set -g status-left "#[bg=#7aa2f7,fg=#1f2335,bold] #S #{?SSH_CLIENT,#[bg=#f7768e]#[fg=#1f2335]    SSH ,}#[bg=#1f2335,fg=#{?SSH_CLIENT,#f7768e,#7aa2f7},none] "
+
+# --- JANELAS (Abas centrais com divisores Powerline suaves) ---
+# Janelas Inativas
+set-window-option -g window-status-style bg=#1f2335,fg=#565f89
+set-option -g window-status-format ' #W#{?window_activity_flag,!,} #[fg=#24283b]' 
+
+# Janela Ativa (Bloco destacado com triângulos de transição)
+set-window-option -g window-status-current-style bg=#3b4261,fg=#7aa2f7,bold
+set-option -g window-status-current-format '#[fg=#1f2335,bg=#3b4261]#[fg=#7aa2f7,bold] #W#{?window_zoomed_flag,-Z,} #[fg=#3b4261,bg=#1f2335,none]'
+
+# --- LADO DIREITO (Data/Hora com segmentos Powerline) ---
+set -g status-right-length 100
+set -g status-right "#[fg=#24283b,bg=#1f2335]#[fg=#565f89,bg=#24283b] %d %b #[fg=#3b4261,bg=#24283b]#[fg=#7aa2f7,bg=#3b4261,bold] %H:%M "
+
+# Cores do menu de comando e alertas (C-a + :)
+set -g message-style "fg=#7aa2f7,bg=#1f2335,bold"
+
+# ==========================================
+
+# MOUSE
+
+# Enable mouse support by default, but make it easy to turn on/off
+set-option -g mouse on
+bind-key m set-option -g mouse
+
+# If you have sessions, and put #S in the status bar, click or 
+# scroll on the session name to cycle through sessions
+bind-key -n MouseUp1StatusLeft switch-client -n
+bind-key -n WheelDownStatusLeft switch-client -n
+bind-key -n WheelUpStatusLeft switch-client -p
+
+# increase scrollback
+set-option -g history-limit 50000
+
