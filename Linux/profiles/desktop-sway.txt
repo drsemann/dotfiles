@@ -1,0 +1,14 @@
+bash
+zsh
+tmux
+vim
+nvim
+kitty
+fastfetch
+ranger
+sway
+waybar
+swaync
+gtklock
+foot
+wofi

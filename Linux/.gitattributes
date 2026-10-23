@@ -1,0 +1,12 @@
+* text=auto eol=lf
+*.sh text eol=lf
+*.conf text eol=lf
+*.toml text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+packages/** text eol=lf
+*.png binary
+*.jpg binary
+*.zip binary
+*.gz binary

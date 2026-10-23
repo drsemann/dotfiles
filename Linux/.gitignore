@@ -1,0 +1,7 @@
+*.bak
+*.orig
+*.bkp
+*-bkp
+*-bkp2
+*.swp
+__pycache__/

@@ -1,0 +1,12 @@
+bash
+zsh
+tmux
+vim
+nvim
+alacritty
+fastfetch
+ranger
+i3
+polybar
+picom
+rofi
